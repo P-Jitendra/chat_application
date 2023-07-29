@@ -2,30 +2,54 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ setAuth }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  async function submit(e) {
+  // const [error, setError] = useState("");
+  const submit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:4000/fetchUser", {
-        email,
-        password,
+    axios
+      .post("http://localhost:4000/fetchUser", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log("Printing response value : \n", response);
+        if (response.data.status === "success") {
+          navigate("/dashboard", { state: true });
+        } else {
+          setError(response.data.msg);
+          //alert(response.data.msg);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.data);
       });
-      setAuth(true);
-      navigate("/dashboard");
-    } catch (error) {
-      console.log(`Error : ${error}`);
-    }
-  }
+  };
+  // async function submit(e) {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.post("http://localhost:4000/fetchUser", {
+  //       email,
+  //       password,
+  //     });
+  //     setAuth(true);
+  //     navigate("/dashboard");
+  //   } catch (error) {
+  //     console.log(`Error : ${error}`);
+  //   }
+  // }
 
   return (
     <div className="common">
       <div className="loginContainer">
         <div className="heading">Chat App</div>
+
         <form className="loginBody">
+          <span style={{color : "red"}}>{error}</span>
           <input
             type="text"
             placeholder="MobileNo/Email"
@@ -35,7 +59,7 @@ const Login = ({ setAuth }) => {
             }}
           />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className="pwd"
             onChange={(e) => {

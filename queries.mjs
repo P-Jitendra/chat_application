@@ -51,14 +51,29 @@ const fetchUser = (request, response) => {
     (error, result) => {
       if (error) {
         console.log(`Printing error for createUser : ${error}`);
-        throw error;
+        // return response.json({
+        //   status: "error",
+        //   error: "Error in running query",
+        // });
+        return response.status(400).send({
+          status: "error",
+          msg: "Error in running db query, Plz try again...",
+        });
       }
-      let Data = [
-        result.rows[0].username,
-        result.rows[0].email,
-        result.rows[0].mobileno,
-      ];
-      response.status(201).send(`User added with data: ${Data}`);
+      const res_list = result.rows;
+      //console.log(JSON.stringify(randomVariable));
+      //console.log("Printing Query res : \n", JSON.stringify(res_list));
+      console.log("Printing Query res : \n", res_list);
+      if (res_list.length > 0) {
+        return response.status(200).send({status : "success", msg : "User found successfully"});
+        //response.json({ status: "success" });
+      } else {
+        // return response.json({
+        //   status: "error",
+        //   error: "Incorrect email or password",
+        // });
+        return response.status(200).send({status : "error", msg : "Incorrect email or password"});
+      }
     }
   );
 };
