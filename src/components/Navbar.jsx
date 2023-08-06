@@ -6,7 +6,7 @@ const Navbar = () => {
   const submit = (e) => {
     e.preventDefault();
     navigate("/login");
-  }
+  };
   return (
     <div className="navbar">
       <span className="logo">Chat App</span>
@@ -17,7 +17,9 @@ const Navbar = () => {
           className="image"
         />
         <span>PJ</span>
-        <button className="button" onClick={() => navigate("/login")}>Logout</button>
+        <button className="button" onClick={(e) => submit(e)}>
+          Logout
+        </button>
       </div>
     </div>
   );

@@ -7,21 +7,32 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [mobileNo, setMobileNo] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   async function submit(e) {
     e.preventDefault();
 
-    try {
-      await axios.post("http://localhost:4000/", {
+    axios
+      .post("http://localhost:4000/", {
         name,
         email,
         mobileNo,
         password,
+      })
+      .then((response) => {
+        console.log("Printing response value : \n", response);
+        if (response.data.status === "success") {
+          navigate("/login");
+        } else {
+          setError(response.data.msg);
+          //alert(response.data.msg);
+        }
+      })
+      .catch((error) => {
+        console.log(`Received error : ${error}`);
+        alert(error.data);
       });
-    } catch (error) {
-      console.log(`Error : ${error}`);
-    }
   }
 
   return (
@@ -29,6 +40,7 @@ const Register = () => {
       <div className="registerContainer">
         <div className="heading">Chat App</div>
         <form className="registerBody">
+          <span style={{ color: "red" }}>{error}</span>
           <input
             type="text"
             placeholder="Name"
@@ -66,7 +78,9 @@ const Register = () => {
             placeholder="Confirm Password"
             className="commonInput"
           />
-          <button className="button" onClick={() => navigate("/login")}>Register</button>
+          <button className="button" onClick={(e) => submit(e)}>
+            Register
+          </button>
           <span className="loginText">
             Already have an account, <Link to="/login">Login</Link>
           </span>
