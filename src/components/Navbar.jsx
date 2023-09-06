@@ -1,10 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+// import store from "../store";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const userInfo = props.userInfo;
+  const sendMessage = props.sendMessage;
   const navigate = useNavigate();
   const submit = (e) => {
     e.preventDefault();
+    // store.dispatch({ type: "loggedOutUser", email: props.userId });
+    // const newState = store.getState();
+    // console.log(`Printing State after logout : ${JSON.stringify(newState)}`);
+    sendMessage(JSON.stringify({ type: "close", clientId: userInfo.mobileno }));
     navigate("/login");
   };
   return (
@@ -16,7 +23,7 @@ const Navbar = () => {
           alt=""
           className="image"
         />
-        <span>PJ</span>
+        <span>{userInfo.username}</span>
         <button className="button" onClick={(e) => submit(e)}>
           Logout
         </button>

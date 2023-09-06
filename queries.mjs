@@ -21,6 +21,25 @@ const getUsers = (request, response) => {
     response.status(200).json(result.rows);
   });
 };
+//Get all contacts for given userId
+const getAllContacts = (request, response) => {
+  const mobileno = parseInt(request.params.mobileno);
+  pool.query(
+    "SELECT * FROM contacts  WHERE mobileno = $1",
+    [mobileno],
+    (error, result) => {
+      if (error) {
+        console.log(`Got error while fetching contacts : ${error}`);
+      } else {
+        //response.status(200).json(result.rows);
+        response.status(200).json({
+          status: "success",
+          user_contacts: result.rows,
+        });
+      }
+    }
+  );
+};
 
 const getUserById = (request, response) => {
   // console.log(`Id : ${request.params.id}`);
@@ -65,14 +84,23 @@ const fetchUser = (request, response) => {
       //console.log("Printing Query res : \n", JSON.stringify(res_list));
       console.log("Printing Query res : \n", res_list);
       if (res_list.length > 0) {
-        return response.status(200).send({status : "success", msg : "User found successfully"});
+        return response.status(200).send({
+          status: "success",
+          msg: "User found successfully",
+          user_info: {
+            username: res_list[0].username,
+            mobileno: res_list[0].mobileno,
+          },
+        });
         //response.json({ status: "success" });
       } else {
         // return response.json({
         //   status: "error",
         //   error: "Incorrect email or password",
         // });
-        return response.status(200).send({status : "error", msg : "Incorrect email or password"});
+        return response
+          .status(200)
+          .send({ status: "error", msg: "Incorrect email or password" });
       }
     }
   );
@@ -81,20 +109,51 @@ const fetchUser = (request, response) => {
 //Post a user(post operation)
 const createUser = (request, response) => {
   const { name, email, mobileno, password } = request.body;
+  console.log(`Received Request body: ${JSON.stringify(request.body)}`);
   pool.query(
     "INSERT INTO client_data (username, email, mobileno, password) VALUES ($1, $2, $3, $4) RETURNING *",
     [name, email, mobileno, password],
     (error, result) => {
       if (error) {
         console.log(`Printing error for createUser : ${error}`);
-        throw error;
+      } else {
+        let Data = [
+          result.rows[0].username,
+          result.rows[0].email,
+          result.rows[0].mobileno,
+        ];
+        response.status(201).send({
+          status: "success",
+          msg: `User added with data: ${Data}`,
+        });
       }
-      let Data = [
-        result.rows[0].username,
-        result.rows[0].email,
-        result.rows[0].mobileno,
-      ];
-      response.status(201).send(`User added with data: ${Data}`);
+    }
+  );
+};
+
+//Post new Contact info for an existing user
+const createContact = (request, response) => {
+  const { mobileno, clientname, contactno } = request.body;
+  if (!Number.isInteger(mobileno)) {
+    mobileno = parseInt(request.body.mobileno);
+  }
+  pool.query(
+    "INSERT INTO contacts (mobileno, clientname, contactno) VALUES ($1, $2, $3) RETURNING *",
+    [mobileno, clientname, contactno],
+    (error, result) => {
+      if (error) {
+        console.log(`Got error for createContact query : ${error}`);
+      } else {
+        let Data = [
+          result.rows[0].mobileno,
+          result.rows[0].clientname,
+          result.rows[0].contactno,
+        ];
+        response.status(201).send({
+          status: "success",
+          msg: "Contact added successfully",
+        });
+      }
     }
   );
 };
@@ -110,6 +169,27 @@ const deleteUser = (request, response) => {
         throw error;
       }
       response.status(200).send(`User deleted with mobileno : ${mobileno}`);
+    }
+  );
+};
+
+const deleteContact = (request, response) => {
+  const { mobileno, contactno } = request.body;
+  console.log(
+    `Received request to delete contact : ${JSON.stringify(request.body)}`
+  );
+  pool.query(
+    "DELETE FROM contacts WHERE mobileno = $1 AND contactno = $2",
+    [mobileno, contactno],
+    (error, result) => {
+      if (error) {
+        console.log(`Got error while deleting contact : ${error}`);
+      } else {
+        response.status(200).send({
+          status: "success",
+          msg: "Contact deleted successfully",
+        });
+      }
     }
   );
 };
@@ -139,6 +219,9 @@ const db = {
   getUserById,
   fetchUser,
   createUser,
+  createContact,
+  deleteContact,
+  getAllContacts,
   deleteUser,
   updateUser,
 };

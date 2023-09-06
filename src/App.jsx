@@ -3,16 +3,19 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Register from "./Register";
 import NoPage from "./NoPage";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 function App() {
+  // const location = useLocation();
+  // const state = location.state;
+
+  // // Use the attributes from the state object with optional chaining and nullish coalescing
+  // const isLoggedIn = state?.isLoggedIn ?? false;
+  // const username = state?.username ?? "";
+  // const role = state?.role ?? "";
   const location = useLocation();
-  const isAuth = location.state;
+  const isLoggedIn = location.state && location.state.isLoggedIn;
+  const userinfo = location.state && location.state.userinfo;
   return (
     <div>
       {/* <Dashboard /> */}
@@ -26,7 +29,13 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route
             path="dashboard"
-            element={isAuth ? <Dashboard /> : <Navigate to="/login" />}
+            element={
+              isLoggedIn ? (
+                <Dashboard userInfo={userinfo} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route path="*" element={<NoPage />} />
         </Route>

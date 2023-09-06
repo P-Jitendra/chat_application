@@ -21,11 +21,17 @@ app.get("/users", db.getUsers);
 
 app.get("/getUser/:mobileno", db.getUserById);
 
+app.get("/allContacts/:mobileno", db.getAllContacts);
+
 app.post("/fetchUser", db.fetchUser);
 
 app.post("/createUser", db.createUser);
 
+app.post("/createContact", db.createContact);
+
 app.delete("/deleteUser/:mobileno", db.deleteUser);
+
+app.post("/deleteContact", db.deleteContact);
 
 app.put("/updateUser/:mobileno", db.updateUser);
 

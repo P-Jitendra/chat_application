@@ -10,19 +10,24 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  async function submit(e) {
+  const submit = (e) => {
     e.preventDefault();
-
+    const mobileno = parseInt(mobileNo);
     axios
-      .post("http://localhost:4000/", {
+      .post("http://localhost:4000/createUser/", {
         name,
         email,
-        mobileNo,
+        mobileno,
         password,
       })
       .then((response) => {
         console.log("Printing response value : \n", response);
         if (response.data.status === "success") {
+          console.log(
+            `Received register success msg: ${JSON.stringify(
+              response.data.msg
+            )}`
+          );
           navigate("/login");
         } else {
           setError(response.data.msg);
@@ -33,7 +38,7 @@ const Register = () => {
         console.log(`Received error : ${error}`);
         alert(error.data);
       });
-  }
+  };
 
   return (
     <div className="common">
@@ -50,7 +55,7 @@ const Register = () => {
             }}
           />
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             className="commonInput"
             onChange={(e) => {
@@ -66,7 +71,7 @@ const Register = () => {
             }}
           />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className="commonInput"
             onChange={(e) => {
@@ -74,7 +79,7 @@ const Register = () => {
             }}
           />
           <input
-            type="text"
+            type="password"
             placeholder="Confirm Password"
             className="commonInput"
           />

@@ -1,23 +1,24 @@
 import React from "react";
 
-const Message = ({ className }) => {
+const Message = ({ className, msgContent, timestamp }) => {
   return (
-    <div className={ className }>
+    <div className={className}>
       <div className="messageInfo">
         <img
           src="https://randomuser.me/api/portraits/lego/5.jpg"
           alt=""
           className="image"
         />
-        <span>just now</span>
+        <span>{timestamp}</span>
       </div>
       <div className="messageContent">
-        <p className="p">hello</p>
-        <img
+        {console.log(`Printing msg content : ${msgContent}`)}
+        <p className="p">{msgContent}</p>
+        {/* <img
           src="https://randomuser.me/api/portraits/lego/5.jpg"
           alt=""
           className="image"
-        />
+        /> */}
       </div>
     </div>
   );
