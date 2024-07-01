@@ -1,0 +1,7 @@
+[
+	{client_app, [
+		{rcs_ip, "${RCS_IP:-127.0.0.1}"},
+        {rcs_port, ${RCS_PORT:-7071}},
+        {auto_start, ${AUTO_START:-false}}
+	]}
+].

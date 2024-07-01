@@ -1,0 +1,10 @@
+{application,
+ server_app,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {server_app_app, []}},
+  {applications, [kernel, stdlib, sasl, inets, gproc, iso8601, jsx, cowboy]},
+  {env, []},
+  {modules, []},
+  {links, []}]}.

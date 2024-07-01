@@ -1,0 +1,6 @@
+[
+	{server_app, [
+		{tcp_listen_port, ${TCP_LISTEN_PORT:-7071}},
+		{environment,"${ENVIRONMENT:-prod}"},
+	]}
+].
