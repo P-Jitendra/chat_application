@@ -28,3 +28,10 @@ Database : Postgres, Mnesia
 4. **rebar3 shell -r client_app --config apps\client_app\config\sys.config --sname client**
 
 ## Attaching the screenshot of Chat App UI pages
+![Screenshot 2024-07-01 212135](https://github.com/P-Jitendra/chat_application/assets/51356440/e1135b8f-4554-4a69-9ab5-70a5d1118ff6)
+![Screenshot 2024-07-01 212203](https://github.com/P-Jitendra/chat_application/assets/51356440/328abb37-7172-422b-abb9-422bfd35cd42)
+![Screenshot 2024-07-01 212423](https://github.com/P-Jitendra/chat_application/assets/51356440/cfe641c5-72ec-41bc-a2f9-4978d1181667)
+![Screenshot 2024-07-01 212352](https://github.com/P-Jitendra/chat_application/assets/51356440/35944eef-d41a-46f9-bee1-31372fe58d37)
+![Screenshot 2024-07-01 212251](https://github.com/P-Jitendra/chat_application/assets/51356440/053a4c79-fe80-4698-9cce-8bf4eedba1fd)
+
+
