@@ -14,17 +14,17 @@ Database : Postgres, Mnesia
 
 ## Steps to start frontend app
 
-1. cd frontend/
-2. ### `npm i`
-3. ### `npm run server`
+1. **cd frontend/**
+2. **npm i**
+3. **npm run server**
 4. Open frontend folder in different window to start client side(UI) of Frontend
-5. ### `npm start`
+5. **npm start**
 
 ## Steps to start backend app
 
-1. ### `cd backend/`
-2. ### `rebar3 shell -r server_app --config apps\server_app\config\sys.config --sname chat_server`
+1. **cd backend/**
+2. **rebar3 shell -r server_app --config apps\server_app\config\sys.config --sname chat_server**
 3. Open backend folder in a different window to start client side of backend
-4. ### `rebar3 shell -r client_app --config apps\client_app\config\sys.config --sname client`
+4. **rebar3 shell -r client_app --config apps\client_app\config\sys.config --sname client**
 
 ## Attaching the screenshot of Chat App UI pages
