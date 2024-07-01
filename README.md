@@ -1,16 +1,22 @@
 # Fullstack Chat Application
 
-Front end tech stack : React js
+### `Front end tech stack` : ***ReactJs***, ***NodeJs***
 
-Back end tech stack : Erlang, Nodejs
+### `Back end tech stack` : ***Erlang***
 
-Database : Postgres, Mnesia
+### `Database` : ***Postgres***
 
 ## Steps to setup Postgres
 
 1. Install Postgres 14(pgAdmin14)
-2. Create a table name as `api`
-3. Refer the screenshot for Postgres table schema
+2. Create a datbase name as `api`
+3. Create 2 tables as `client_data` and `contacts` in table `api`
+4. Refer the below screenshots for Postgres table schema
+
+## Attaching the screenshot for Postgres table schema
+![Screenshot 2024-07-01 213654](https://github.com/P-Jitendra/chat_application/assets/51356440/7e9bc75b-e4cf-44d3-94dc-3389f60a0bc0)
+![Screenshot 2024-07-01 213753](https://github.com/P-Jitendra/chat_application/assets/51356440/3596d8a8-57ac-4b4a-a524-2d4486bc079c)
+
 
 ## Steps to start frontend app
 
