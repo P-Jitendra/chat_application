@@ -1,4 +1,4 @@
-chat_app
+chat_app(Backend)
 =====
 
 An OTP application

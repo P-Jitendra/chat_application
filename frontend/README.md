@@ -1,10 +1,3 @@
-# Tech Stack of Chat App
-Front end tech stack : React js
-
-Back end tech stack : Erlang, Nodejs
-
-Database : Postgres, Mnesia
-
 ## Steps to start client ui
 UI part of Chat App
 #### `npm start`
